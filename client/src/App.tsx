@@ -1,22 +1,16 @@
+import {BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom";
 import React from 'react';
+
+import {Register, Home} from "pages";
 
 function App(): JSX.Element {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </Router>
   );
 }
 
