@@ -1,6 +1,6 @@
 import AppDataSource from "../typeorm.config";
 import {Repository} from "typeorm";
-import {User} from "entities/user.entity";
+import {User} from "../entities/user.entity";
 
 export class UserController {
 

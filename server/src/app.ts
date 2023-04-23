@@ -20,8 +20,8 @@ const PORT = config.get('Dev.programConfig.port');
 const app: Express = express()
 const server = http.createServer(app);
 
-const authRoute = require("routes/auth.routes");
-const userRoute = require("routes/user.routes");
+const authRoute = require("./routes/auth.routes");
+const userRoute = require("./routes/user.routes");
 
 app.use(cors());
 app.use(bodyParser.json());

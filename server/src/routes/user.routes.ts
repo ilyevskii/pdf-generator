@@ -1,7 +1,7 @@
 import {Router} from "express";
-import {User} from "entities/user.entity";
-import {UserController} from "controllers/user.controller";
-import {generatePDF} from "utilities/pdf.utility";
+import {User} from "../entities/user.entity";
+import {UserController} from "../controllers/user.controller";
+import {generatePDF} from "../utilities/pdf.utility";
 
 const router: Router = require("express").Router();
 const bcrypt = require("bcrypt");

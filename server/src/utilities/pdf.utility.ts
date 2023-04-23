@@ -1,4 +1,4 @@
-import {User} from "entities/user.entity";
+import {User} from "../entities/user.entity";
 import {PDFDocument, PDFFont, PDFImage, PDFPage, StandardFonts} from 'pdf-lib';
 import * as fs from 'fs';
 

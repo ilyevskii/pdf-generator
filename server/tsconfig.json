@@ -6,13 +6,11 @@
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "utilities": ["./utilities/*.ts"],
-      "migrations": ["./migrations/*.ts"],
-      "controllers": ["./controllers/*.ts"],
-      "entities": ["./entities/*.ts"],
-      "routes": ["./routes/*.ts"]
+      "@utilities/*": ["src/utilities/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@entities/*": ["src/entities/*"],
     }
   },
 
