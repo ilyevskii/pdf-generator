@@ -2,13 +2,20 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "baseUrl": "./"
+    "baseUrl": "./src",
+    "paths": {
+      "utilities": ["./utilities/*.ts"],
+      "migrations": ["./migrations/*.ts"],
+      "controllers": ["./controllers/*.ts"],
+      "entities": ["./entities/*.ts"],
+      "routes": ["./routes/*.ts"]
+    }
   },
+
   "include": [
     "src/**/*"
   ],
