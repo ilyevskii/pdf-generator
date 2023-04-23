@@ -16,6 +16,16 @@ export class UserController {
         }
     }
 
+    async findUserById(id: string | number) : Promise<User | null> {
+        try {
+            return await this.findUser({id: id.toString()});
+        }
+        catch(err: any) {
+            console.log(err.toString());
+            return null;
+        }
+    }
+
     async createNewUser(user_data: object) : Promise<User | null> {
         try {
             const user: User = this.userRepository.create(user_data);

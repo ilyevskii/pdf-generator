@@ -1,17 +1,19 @@
 import {Router} from "express";
 import {User} from "../entity/user.entity";
 import {UserController} from "../controller/user.controller";
+import {generatePDF} from "../utilities/pdf.utility";
 
 const router: Router = require("express").Router();
 const bcrypt = require("bcrypt");
 
 const controller: UserController = new UserController();
 
+
 //GET USER INFO
 router.get("/:userId", async (req, res) => {
 
     try {
-        const user: User | null = await controller.findUser({id: req.params.userId});
+        const user: User | null = await controller.findUserById(req.params.userId);
 
         if (!user) {
             res.status(404).json("User doesn`t exists");
@@ -25,13 +27,14 @@ router.get("/:userId", async (req, res) => {
     }
 });
 
+
 //CHANGE USER INFO
 router.put("/:userId", async (req, res) => {
 
     try {
         if (req.body.id.toString() === req.params.userId) {
 
-            const user: User | null = await controller.findUser({id: req.body.id})
+            const user: User | null = await controller.findUserById(req.body.id)
             if (!user) {
                 res.status(404).json("User doesn`t exists");
                 return;
@@ -54,13 +57,14 @@ router.put("/:userId", async (req, res) => {
     }
 });
 
+
 //DELETE USER
 router.delete("/:userId", async (req, res) => {
 
     try {
         if (req.body.id.toString() === req.params.userId) {
 
-            const user: User | null = await controller.findUser({id: req.body.id})
+            const user: User | null = await controller.findUserById(req.body.id)
             if (!user) {
                 res.status(404).json("User doesn`t exists");
                 return;
@@ -81,6 +85,27 @@ router.delete("/:userId", async (req, res) => {
         res.status(500).json({error: err.toString()});
     }
 });
+
+
+//GENERATE PDF FILE
+router.post("/pdf", async (req, res) => {
+    try {
+        const user: User | null = await controller.findUser({email: req.body.email});
+        if (!user) {
+            res.status(404).json("User doesn`t exists");
+            return;
+        }
+
+        user.pdf = await generatePDF(user);
+        await controller.updateUser(user);
+
+        res.status(200).json("PDF was successfully generated!");
+
+    } catch (err: any) {
+        res.status(500).json({error: err.toString()});
+    }
+})
+
 
 module.exports = router;
 
