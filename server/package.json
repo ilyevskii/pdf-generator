@@ -5,7 +5,12 @@
   "main": "src/app.ts",
   "scripts": {
     "start": "ts-node src/app.ts",
-    "test": "nodemon src/app.ts"
+    "test": "nodemon src/app.ts",
+    "typeorm": "typeorm-ts-node-commonjs ",
+    "migration:create": "npm run typeorm migration:create -n",
+    "migration:generate": "npm run typeorm -- -d ./src/typeorm.config.ts migration:generate",
+    "migration:run": "npm run typeorm -- -d ./src/typeorm.config.ts migration:run",
+    "migration:down": "npm run typeorm -- -d ./src/typeorm.config.ts migration:revert"
   },
   "keywords": [
     "backend",
@@ -28,6 +33,8 @@
     "pg": "^8.10.0",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^10.9.1",
-    "typeorm": "^0.3.15"
+    "tsc": "^2.0.4",
+    "typeorm": "^0.3.15",
+    "typeorm-cli": "^1.0.7"
   }
 }
