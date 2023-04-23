@@ -21,7 +21,7 @@ services:
     container_name: server_app
     build: ./server
     ports:
-      - '3000:3000'
+      - '3001:3001'
     environment:
       DB_HOST: database
       DB_USER: ${TYPEORM_USERNAME}

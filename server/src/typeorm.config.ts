@@ -7,7 +7,7 @@ const AppDataSource: DataSource = new DataSource(
         port: 5432,
         username: "postgres",
         password: "root",
-        database: "users",
+        database: "users_db",
         entities: ["../src/entity/*.ts"],
         migrations: ["../src/migration/*.ts"],
         synchronize: false,
