@@ -22,14 +22,33 @@ router.post("/register", async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-        const user: User = new User();
-        user.email = req.body.email;
-        user.firstName = req.body.firstName;
-        user.lastName = req.body.lastName;
-        user.password = hashedPassword;
+        const user: User = await UserRepository.create({email: req.body.email, password: hashedPassword});
         await UserRepository.save(user);
 
         res.status(200).json(user);
+
+    } catch (err: any) {
+        res.status(500).json({error: err.toString()});
+    }
+});
+
+//LOGIN
+router.post("/login", async (req, res) => {
+    try {
+
+        const user = await UserRepository.findOneBy({email: req.body.email})
+        if (!user) {
+            res.status(404).json("User with such email not found");
+            return;
+        }
+
+        const validPassword = await bcrypt.compare(req.body.password, user.password)
+        if (!validPassword) {
+            res.status(400).json("Wrong password");
+            return
+        }
+
+        res.status(200).json(user)
 
     } catch (err: any) {
         res.status(500).json({error: err.toString()});
