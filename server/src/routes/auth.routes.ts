@@ -1,19 +1,18 @@
 import {Router} from "express";
 import {User} from "../entity/user.entity";
-import AppDataSource from "../typeorm.config";
-import {Repository} from "typeorm";
+import {UserController} from "../controller/user.controller";
 
 const router: Router = require("express").Router();
 const bcrypt = require("bcrypt");
 
-export const UserRepository: Repository<User> = AppDataSource.getRepository(User);
+const controller: UserController = new UserController();
 
 
 //REGISTER
 router.post("/register", async (req, res) => {
     try {
 
-        if (await UserRepository.findOneBy({email: req.body.email}))
+        if (await controller.findUser({email: req.body.email}))
         {
             res.status(404).json("User with such email exists");
             return;
@@ -22,8 +21,7 @@ router.post("/register", async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-        const user: User = await UserRepository.create({email: req.body.email, password: hashedPassword});
-        await UserRepository.save(user);
+        const user: User = (await controller.createNewUser({email: req.body.email, password: hashedPassword})) as User;
 
         res.status(200).json(user);
 
@@ -36,7 +34,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
 
-        const user = await UserRepository.findOneBy({email: req.body.email})
+        const user: User | null = await controller.findUser({email: req.body.email})
         if (!user) {
             res.status(404).json("User with such email not found");
             return;
