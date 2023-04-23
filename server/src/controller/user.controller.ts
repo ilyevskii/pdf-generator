@@ -1,6 +1,6 @@
 import {User} from "../entity/user.entity";
 import AppDataSource from "../typeorm.config";
-import {Repository} from "typeorm";
+import {Repository, UpdateResult} from "typeorm";
 
 export class UserController {
 
@@ -27,5 +27,14 @@ export class UserController {
             return null;
         }
 
+    }
+
+    async updateUser(user_data: User) {
+        try {
+            await this.userRepository.update(user_data.id!, user_data);
+        }
+        catch(err: any) {
+            console.log(err.toString());
+        }
     }
 }

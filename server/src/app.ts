@@ -21,10 +21,12 @@ const app: Express = express()
 const server = http.createServer(app);
 
 const authRoute = require("./routes/auth.routes");
+const userRoute = require("./routes/user.routes");
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/api/auth", authRoute);
+app.use("/api/user", userRoute);
 
 server.listen(PORT, () => {
     console.log(`Server has been started on port ${PORT} ...`)
