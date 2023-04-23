@@ -20,8 +20,11 @@ const PORT = config.get('Dev.programConfig.port');
 const app: Express = express()
 const server = http.createServer(app);
 
+const authRoute = require("./routes/auth.routes");
+
 app.use(cors());
 app.use(bodyParser.json());
+app.use("/api/auth", authRoute);
 
 server.listen(PORT, () => {
     console.log(`Server has been started on port ${PORT} ...`)
