@@ -1,4 +1,11 @@
 import {Express} from "express";
+import AppDataSource from "./typeorm.config";
+
+AppDataSource.initialize().then(() => {
+    console.log('Connected to database');
+}).catch((error) => {
+    console.log('Failed to connect to database:', error);
+});
 
 
 const express = require('express');
