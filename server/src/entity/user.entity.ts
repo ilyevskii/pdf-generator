@@ -17,4 +17,10 @@ export class User {
     @Column({ type: 'varchar' })
     password!: string;
 
+    @Column({ type: 'varchar', nullable: true })
+    image?: string;
+
+    @Column({ type: 'bytea', nullable: true })
+    pdf?: string;
+
 }
