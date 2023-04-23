@@ -29,12 +29,23 @@ export class UserController {
 
     }
 
-    async updateUser(user_data: User) {
+    async updateUser(user_data: User) : Promise<void> {
         try {
             await this.userRepository.update(user_data.id!, user_data);
         }
         catch(err: any) {
             console.log(err.toString());
+        }
+    }
+
+    async deleteUser(user_id: number) {
+        try {
+            await this.userRepository.delete(user_id);
+            return true;
+        }
+        catch (err: any) {
+            console.log(err.toString());
+            return false;
         }
     }
 }

@@ -54,5 +54,33 @@ router.put("/:userId", async (req, res) => {
     }
 });
 
+//DELETE USER
+router.delete("/:userId", async (req, res) => {
+
+    try {
+        if (req.body.id.toString() === req.params.userId) {
+
+            const user: User | null = await controller.findUser({id: req.body.id})
+            if (!user) {
+                res.status(404).json("User doesn`t exists");
+                return;
+            }
+
+            if (await controller.deleteUser(req.body.id)) {
+                res.status(200).json("Account has been deleted");
+            }
+            else {
+                res.status(200).json("Something went wrong. Try again!");
+            }
+
+        } else {
+            return res.status(403).json("You can delete only your account!");
+        }
+
+    } catch (err: any) {
+        res.status(500).json({error: err.toString()});
+    }
+});
+
 module.exports = router;
 
