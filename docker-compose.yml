@@ -30,6 +30,6 @@ services:
       DB_PORT: ${TYPEORM_PORT}
     volumes:
       - type: bind
-        source: ./server/src/migration
-        target: /src/migration
+        source: ./server/src/migrations
+        target: /src/migrations
         read_only: false
