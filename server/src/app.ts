@@ -1,7 +1,7 @@
 import {Express} from "express";
 import AppDataSource from "./typeorm.config";
 
-AppDataSource.initialize().then(() => {
+AppDataSource.initialize().then(() : void => {
     console.log('Connected to database');
 }).catch((error) => {
     console.log('Failed to connect to database:', error);
@@ -20,14 +20,14 @@ const PORT = config.get('Dev.programConfig.port');
 const app: Express = express()
 const server = http.createServer(app);
 
-const authRoute = require("./routes/auth.routes");
-const userRoute = require("./routes/user.routes");
+const authRoute = require("routes/auth.routes");
+const userRoute = require("routes/user.routes");
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 
-server.listen(PORT, () => {
+server.listen(PORT, () : void => {
     console.log(`Server has been started on port ${PORT} ...`)
 })

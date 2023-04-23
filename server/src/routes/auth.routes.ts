@@ -1,6 +1,6 @@
 import {Router} from "express";
-import {User} from "../entity/user.entity";
-import {UserController} from "../controller/user.controller";
+import {User} from "entities/user.entity";
+import {UserController} from "controllers/user.controller";
 
 const router: Router = require("express").Router();
 const bcrypt = require("bcrypt");

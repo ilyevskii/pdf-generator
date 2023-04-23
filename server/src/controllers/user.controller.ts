@@ -1,6 +1,6 @@
-import {User} from "../entity/user.entity";
 import AppDataSource from "../typeorm.config";
-import {Repository, UpdateResult} from "typeorm";
+import {Repository} from "typeorm";
+import {User} from "entities/user.entity";
 
 export class UserController {
 
@@ -48,7 +48,7 @@ export class UserController {
         }
     }
 
-    async deleteUser(user_id: number) {
+    async deleteUser(user_id: number): Promise<boolean> {
         try {
             await this.userRepository.delete(user_id);
             return true;

@@ -8,8 +8,8 @@ const AppDataSource: DataSource = new DataSource(
         username: "postgres",
         password: "root",
         database: "users_db",
-        entities: ["../src/entity/*.ts"],
-        migrations: ["../src/migration/*.ts"],
+        entities: ["../src/entities/*.ts"],
+        migrations: ["../src/migrations/*.ts"],
         synchronize: false,
     }
 );
