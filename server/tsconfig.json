@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "@utilities/*": ["src/utilities/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@entities/*": ["src/entities/*"],
+    }
+  },
+
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules", "**/*.spec.ts"]
+}

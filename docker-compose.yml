@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+
+  database:
+    image: postgres:13
+    container_name: server_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${TYPEORM_USERNAME}
+      POSTGRES_PASSWORD: ${TYPEORM_PASSWORD}
+      POSTGRES_DB: ${TYPEORM_DATABASE}
+    ports:
+      - ${TYPEORM_PORT}:${TYPEORM_PORT}
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+
+  app:
+    depends_on:
+      - database
+    container_name: server_app
+    build: ./server
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    environment:
+      DB_HOST: database
+      DB_USER: ${TYPEORM_USERNAME}
+      DB_PASSWORD: ${TYPEORM_PASSWORD}
+      DB_NAME: ${TYPEORM_DATABASE}
+      DB_PORT: ${TYPEORM_PORT}
+    volumes:
+      - ./server/public:/public:rw
+      - type: bind
+        source: ./server/src
+        target: /src
+        read_only: false
+
+  client:
+    container_name: client_app
+    build: ./client
+    ports:
+      - ${CLIENT_PORT}:${CLIENT_PORT}
+    volumes:
+      - type: bind
+        source: ./client/src
+        target: /src
+        read_only: false

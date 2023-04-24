@@ -1,0 +1,12 @@
+.login-footer {
+    margin-top: 15px;
+}
+
+.login-footer span:hover {
+    cursor: pointer;
+}
+
+.input:first-of-type {
+    margin-top: 15px;
+}
+
