@@ -39,7 +39,7 @@ export class UserController {
 
     }
 
-    async updateUser(user_data: User) : Promise<void> {
+    async updateUser(user_data: any) : Promise<void> {
         try {
             await this.userRepository.update(user_data.id!, user_data);
         }
