@@ -10,6 +10,8 @@ export function Home(): JSX.Element {
 
     const [name, setName] = useState(user!.firstName! ? user!.firstName! : "");
     const [lastName, setLastName] = useState(user!.lastName! ? user!.lastName! : "");
+    const [image, setImage] = useState<File | null>(null);
+
     const [pdf_link, setLink] = useState('');
     const [error, setError] = useState('');
     const [notification, setNotification] = useState('');
@@ -23,6 +25,12 @@ export function Home(): JSX.Element {
 
     const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setLastName(event.target.value);
+    };
+
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files.length > 0) {
+            setImage(event.target.files[0]);
+        }
     };
 
     const handleLogoutClick = (): void => {
@@ -43,18 +51,35 @@ export function Home(): JSX.Element {
     const handleChangeClick = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        function hasNoRussianCharacters(str: string): boolean {
+            const russianRegex: RegExp = /[а-яА-Я]/g;
+            return !russianRegex.test(str);
+        }
+
         if (lastName && name) {
             if (user!.lastName !== lastName || user!.firstName !== name) {
-                userRepo.change_account_info({
-                    id: user!.id,
-                    firstName: name,
-                    lastName: lastName
-                }).then(res => {if (res) {
-                    setError('');
-                    setNotification('Profile data changed successfully!');
-                    refresh();
-                }})
-                    .catch(err => console.log(err.toString()))
+
+                if (hasNoRussianCharacters(lastName) && hasNoRussianCharacters(name)) {
+
+                    userRepo.change_account_info({
+                        id: user!.id,
+                        firstName: name,
+                        lastName: lastName
+                    }).then(res => {if (res) {
+                        userRepo.upload_image(user!, image!).then(res => {
+                            setError('');
+                            setNotification('Profile data changed successfully!');
+                            refresh();
+                        })
+                            .catch(err => console.log(err.toString()))
+                    }})
+                        .catch(err => console.log(err.toString()))
+                }
+                else {
+                    setError('Unfortunately, you can`t use Russian letters to fill in the data.');
+                    setNotification('');
+                }
+
             }
             else {
                 setError('Change the data in the inputs to change the profile details!');
@@ -138,7 +163,9 @@ export function Home(): JSX.Element {
                             className="homepage-input"
                             type="file"
                             id="photo"
-                            accept="image/*" />
+                            accept="image/*"
+                            onChange={handleFileUpload}
+                        />
                     </label>
                 </div>
                 <button className="homepage-button" type="submit">Change profile info</button>
