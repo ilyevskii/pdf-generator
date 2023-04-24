@@ -1,11 +1,5 @@
 import axios from "axios";
-
-interface User {
-    id: number | string;
-    email: string;
-    firstName?: string | null;
-    lastName?: string | null;
-}
+import {User} from "../contexts/Auth/AuthReducer";
 
 export class UserRepository {
 

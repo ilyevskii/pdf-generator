@@ -8,7 +8,7 @@ export interface Action {
     payload?: User;
 }
 
-interface User {
+export interface User {
     id: string | number;
     email: string;
     firstName?: string | null;

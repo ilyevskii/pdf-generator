@@ -26,8 +26,9 @@ export class AuthRepository {
                         lastName: res.data.lastName
                     }
             });
-        } catch (err) {
-            dispatch({ type: "LOGIN_FAILURE"});
+        } catch (err: any) {
+            dispatch({type: "LOGIN_FAILURE"});
+            throw err;
         }
     };
 
@@ -46,6 +47,7 @@ export class AuthRepository {
             });
         } catch (err) {
             dispatch({ type: "LOGIN_FAILURE"});
+            throw err;
         }
     };
 }

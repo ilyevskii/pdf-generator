@@ -1,15 +1,8 @@
 import {createContext, useEffect, useReducer, useContext, ReactNode} from "react";
 import {Dispatch, Context} from "react";
 import AuthReducer from "./AuthReducer";
-import {Action} from "./AuthReducer";
+import {Action, User} from "./AuthReducer";
 import {UserRepository} from "../../repositories/userRepository";
-
-interface User {
-    id: string | number;
-    email: string;
-    firstName?: string | null;
-    lastName?: string | null;
-}
 
 interface AuthContextProviderProps {
     children: ReactNode;
