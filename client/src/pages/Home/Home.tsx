@@ -57,7 +57,7 @@ export function Home(): JSX.Element {
         }
 
         if (lastName && name) {
-            if (user!.lastName !== lastName || user!.firstName !== name) {
+            if (user!.lastName !== lastName || user!.firstName !== name || image) {
 
                 if (hasNoRussianCharacters(lastName) && hasNoRussianCharacters(name)) {
 
@@ -116,64 +116,73 @@ export function Home(): JSX.Element {
     }
 
     return (
-        <div className="homepage-container">
+        <>
             <header className="homepage-header">
-                <button className="homepage-button" onClick={handleLogoutClick}>Change account</button>
+                <button className="button" title="Logout" onClick={handleLogoutClick}>Change account</button>
                 {pdf_link ?
-                    <a className="homepage-button" href={pdf_link} download="result.pdf" >Download PDF</a>
+                    <a className="button" href={pdf_link} download="result.pdf" >Download PDF</a>
                     :
                     <></>
                 }
-                <button className="homepage-button" onClick={handleDeleteClick}>Delete account</button>
+                <button className="button" title="Delete your account" onClick={handleDeleteClick}>Delete account</button>
             </header>
-            <form onSubmit={handleChangeClick} className="homepage-form">
-                {error ?
-                    <div className="homepage-error">{error}</div>
-                    :
-                    <></>
-                }
-                {notification ?
-                    <div className="homepage-notification">{notification}</div>
-                    :
-                    <></>
-                }
-                <div className="homepage-label-group">
-                    <label className="homepage-label">
-                        First Name
-                        <input
-                            className="homepage-input"
-                            placeholder="Name"
-                            type="text"
-                            value={name}
-                            onChange={handleNameChange} />
-                    </label>
-
-                    <label className="homepage-label">
-                        Last Name
-                        <input
-                            className="homepage-input"
-                            placeholder="Last Name"
-                            type="text"
-                            value={lastName}
-                            onChange={handleLastNameChange} />
-                    </label>
-                    <label className="homepage-label">
-                        Image
-                        <input
-                            className="homepage-input"
-                            type="file"
-                            id="photo"
-                            accept="image/*"
-                            onChange={handleFileUpload}
-                        />
-                    </label>
+            <div className="container">
+                <div>
+                    {error ?
+                        <div className="homepage-error">{error}</div>
+                        :
+                        <></>
+                    }
+                    {notification ?
+                        <div className="homepage-notification">{notification}</div>
+                        :
+                        <></>
+                    }
                 </div>
-                <button className="homepage-button" type="submit">Change profile info</button>
-            </form>
-            <button
-                className="homepage-generate-button"
-                onClick={handleGenerateClick}
-            >Generate PDF</button>
-        </div>
-    );
+                <div className="homepage-content">
+
+                    <form onSubmit={handleChangeClick} className="homepage-form">
+                        <div className="homepage-label-group">
+                            <label className="homepage-label">
+                                First Name
+                                <input
+                                    className="homepage-input"
+                                    placeholder="Name"
+                                    type="text"
+                                    value={name}
+                                    onChange={handleNameChange} />
+                            </label>
+                            <label className="homepage-label">
+                                Last Name
+                                <input
+                                    className="homepage-input"
+                                    placeholder="Last Name"
+                                    type="text"
+                                    value={lastName}
+                                    onChange={handleLastNameChange} />
+                            </label>
+                            <label className="homepage-label">
+                                Image
+                                <input
+                                    className="homepage-input photo-input"
+                                    type="file"
+                                    id="photo"
+                                    accept="image/*"
+                                    onChange={handleFileUpload}
+                                />
+                            </label>
+                        </div>
+                        <button className="button" type="submit">Change profile info</button>
+                    </form>
+                    <button
+                        className="homepage-generate-button"
+                        onClick={handleGenerateClick}
+                    >
+                        Generate PDF
+                    </button>
+                </div>
+
+            </div>
+        </>
+        );
 }

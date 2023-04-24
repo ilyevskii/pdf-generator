@@ -1,3 +1,4 @@
+import "./Register.css";
 import React, {useRef, FormEvent, useState} from "react";
 import {AuthRepository} from "../../repositories/authRepository";
 import {AuthContextInterface, useAuth} from "../../contexts/Auth/AuthContext";
@@ -30,56 +31,57 @@ export function Register(): JSX.Element {
                         password: password.current.value,
                     },
                     dispatch
-                ).catch(err => console.log(err.toString()));
-
+                ).catch(err => setError(err.response.data));
+            }
+            else {
+                setError("Passwords don`t match!");
             }
         }
     };
 
     return (
-        <div>
-            <p>Register page</p>
-            <form onSubmit={handleClick}>
-                <p>{error}</p>
+        <div className="container">
+            <h1 className="title">Register page</h1>
+            <form onSubmit={handleClick} className="form">
+                {error ? <div className="error">{error}</div> : <></>}
                 <input
+                    className="input"
                     style={{ display: "block", border: "1px solid" }}
                     placeholder="Email"
                     type="email"
                     required
-                    className="email-input"
                     ref={email}
                 />
                 <input
+                    className="input"
                     style={{ display: "block", border: "1px solid" }}
                     placeholder="Password"
                     type="password"
                     required
                     minLength={6}
-                    className="password-input"
                     ref={password}
                 />
                 <input
+                    className="input"
                     style={{ display: "block", border: "1px solid" }}
                     placeholder="Confirm password"
                     type="password"
                     required
-                    className="password-input"
                     ref={password_confirmation}
                 />
                 <button
                     style={{ display: "block", border: "1px solid" }}
-                    className="register-button"
+                    className="button"
                     type="submit"
                 >
                     Register
                 </button>
 
-                <p> Already have an account?
-                    <button
+                <div className="register-footer"> Already have an account? <span
                         style={{ color: "blue" }}
                         onClick={handleLoginButtonClick}
-                    > Login</button>
-                </p>
+                    > Login</span>
+                </div>
             </form>
         </div>
     );

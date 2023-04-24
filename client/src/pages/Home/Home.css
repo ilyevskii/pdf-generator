@@ -1,88 +1,76 @@
-body {
-    overflow: hidden;
-}
-
-.homepage-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 50px;
-}
-
 .homepage-header {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
+    padding: 15px 250px;
+    border-bottom: lightgray 1px solid;
 }
 
-.homepage-label {
-    margin: 10px 0;
-    font-size: 14px;
-    color: darkgrey;
+.homepage-body {
+
 }
 
-.homepage-title {
-    margin-bottom: 20px;
-    font-size: 32px;
-}
-
-.homepage-form {
+.homepage-content {
+    border: 1px solid lightgray;
+    width: 50%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 75px;
+    justify-content: space-between;
+    vertical-align: center;
+    padding: 50px;
 }
 
 .homepage-input {
     width: 300px;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid lightgray;
+    border: 1px solid gray;
     font-size: 18px;
     display: flex;
     color: black;
-    margin-bottom: 12.5px;
+    margin-bottom: 13px;
+}
+
+.homepage-label {
+    margin:0;
+    font-size: 14px;
+    color: darkgrey;
+}
+
+.photo-input {
+    color: darkgrey;
 }
 
 .homepage-label:first-of-type {
     margin-top: 20px;
 }
 
-.homepage-button {
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    background-color: lightblue;
-    font-size: 18px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    margin-top: 20px;
-}
-
-.homepage-button:hover {
-    background-color: #4343b4;
-}
-
 .homepage-generate-button {
-    border-radius: 50%;
+    border-radius: 20px;
+    width: 40%;
+    height: 40%;
     font-size: 24px;
     border: none;
     color: white;
     margin-top: 130px;
-    background-color: #e86782;
+    background-color: #ffc156;
     padding: 6% 3%;
     transition: all 0.2s ease-in-out;
 }
 
-.homepage-generate-button:hover {
-    background-color: #e8023f;
+.homepage-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.homepage-error {
-    background-color: #e86782;
-    border: #e8023f 1px solid;
+.homepage-generate-button:hover {
+    background-color: #fca400;
+}
+
+.homepage-notification {
+    background-color: #74e774;
+    border: #2dd73c 1px solid;
     color: #ffffff;
     width: 100%;
     padding: 10px 20px;
@@ -90,9 +78,9 @@ body {
     margin-bottom: 10px;
 }
 
-.homepage-notification {
-    background-color: #74e774;
-    border: #2dd73c 1px solid;
+.homepage-error {
+    background-color: #e86782;
+    border: #e8023f 1px solid;
     color: #ffffff;
     width: 100%;
     padding: 10px 20px;

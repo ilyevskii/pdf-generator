@@ -1,4 +1,5 @@
-import React, {useContext, useRef, FormEvent, Dispatch} from "react";
+import "./Login.css";
+import React, {useContext, useRef, FormEvent, useState} from "react";
 import {AuthRepository} from "../../repositories/authRepository";
 import {AuthContext, AuthContextInterface} from "../../contexts/Auth/AuthContext";
 import {NavigateFunction, useNavigate} from "react-router-dom";
@@ -7,7 +8,9 @@ export function Login(): JSX.Element {
     const navigate: NavigateFunction = useNavigate();
     const email: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
     const password: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
-    const { dispatch }: AuthContextInterface = useContext<AuthContextInterface>(AuthContext)!;
+    const {dispatch}: AuthContextInterface = useContext<AuthContextInterface>(AuthContext)!;
+
+    const [error, setError] = useState('');
 
     function handleRegisterButtonClick(): void {
         navigate('/register');
@@ -20,20 +23,23 @@ export function Login(): JSX.Element {
             authRepo.login(
                 { email: email.current.value, password: password.current.value },
                 dispatch
-            ).catch();
+            ).catch(err => {
+                setError(err.response.data);
+            });
         }
     };
 
     return (
-        <div>
-            <p>Login page</p>
-            <form onSubmit={handleClick}>
+        <div className="container">
+            <h1 className="title">Login page</h1>
+            <form onSubmit={handleClick} className="form">
+                {error ? <div className="error">{error}</div> : <></>}
                 <input
                     style={{ display: "block", border: "1px solid" }}
                     placeholder="Email"
                     type="email"
                     required
-                    className="email-input"
+                    className="input"
                     ref={email}
                 />
                 <input
@@ -42,26 +48,25 @@ export function Login(): JSX.Element {
                     type="password"
                     required
                     minLength={6}
-                    className="password-input"
+                    className="input"
                     ref={password}
                 />
                 <button
                     style={{ display: "block", border: "1px solid" }}
-                    className="login-button"
+                    className="button"
                     type="submit"
                 >
                     Log In
                 </button>
 
-                <p className="mt-10">
-                    Don't have an account?
-                    <button
+                <div className="login-footer">
+                    Don't have an account? <span
                         style={{ color: "blue" }}
                         onClick={handleRegisterButtonClick}
                     >
-                        Register
-                    </button>
-                </p>
+                         Register
+                    </span>
+                </div>
             </form>
         </div>
     );
