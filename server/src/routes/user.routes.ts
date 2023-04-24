@@ -99,7 +99,7 @@ router.post("/pdf", async (req, res) => {
         user.pdf = await generatePDF(user);
         await controller.updateUser(user);
 
-        res.status(200).json("PDF was successfully generated!");
+        res.status(200).json(user.pdf);
 
     } catch (err: any) {
         res.status(500).json({error: err.toString()});

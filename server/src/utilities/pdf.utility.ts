@@ -15,6 +15,8 @@ export async function generatePDF(user: User): Promise<Buffer> {
     const textWidth: number = font.widthOfTextAtSize(text, fontSize);
     const textHeight: number = font.heightAtSize(fontSize);
 
+    console.log(text);
+
     page.drawText(text, {
         x: (page.getWidth() - textWidth) / 2,
         y: (page.getHeight() - textHeight) / 2,
@@ -22,12 +24,12 @@ export async function generatePDF(user: User): Promise<Buffer> {
         font: font,
     });
 
-    const imageBytes: Buffer = fs.readFileSync(`../../public/images/${user.id}.jpg`);
-    const image: PDFImage = await pdfDoc.embedJpg(imageBytes);
-    page.drawImage(image, {
-        width: image.width,
-        height: image.height,
-    });
+    // const imageBytes: Buffer = fs.readFileSync(`../../public/images/${user.id}.jpg`);
+    // const image: PDFImage = await pdfDoc.embedJpg(imageBytes);
+    // page.drawImage(image, {
+    //     width: image.width,
+    //     height: image.height,
+    // });
 
     const pdfBytes: Uint8Array = await pdfDoc.save();
 
