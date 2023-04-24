@@ -29,9 +29,10 @@ services:
       DB_NAME: ${TYPEORM_DATABASE}
       DB_PORT: ${TYPEORM_PORT}
     volumes:
+      - ./server/public:/public:rw
       - type: bind
-        source: ./server/src/migrations
-        target: /src/migrations
+        source: ./server/src
+        target: /src
         read_only: false
 
   client:
@@ -41,6 +42,6 @@ services:
       - ${CLIENT_PORT}:${CLIENT_PORT}
     volumes:
       - type: bind
-        source: ./client
-        target: /app
+        source: ./client/src
+        target: /src
         read_only: false
