@@ -49,6 +49,21 @@ export class UserRepository {
         }
     }
 
+    async upload_image(user: User, image: File): Promise<void> {
+
+        const formData: FormData = new FormData();
+        formData.append("image", image as File);
+        formData.append("id", user.id as string);
+
+        try {
+            const response = await axios.post(`${this.url}/upload`, formData);
+            console.log(response.data);
+
+        } catch (err: any) {
+            console.log(err.toString());
+        }
+    }
+
 
     async generate_new_pdf(user: User) {
         try {
