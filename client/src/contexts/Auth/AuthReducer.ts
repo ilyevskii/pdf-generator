@@ -9,8 +9,10 @@ export interface Action {
 }
 
 interface User {
-    id: string;
+    id: string | number;
     email: string;
+    firstName?: string | null;
+    lastName?: string | null;
 }
 
 const AuthReducer = (state: AuthState, action: Action): AuthState => {

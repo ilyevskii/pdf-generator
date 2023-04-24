@@ -2,10 +2,13 @@ import {createContext, useEffect, useReducer, useContext, ReactNode} from "react
 import {Dispatch, Context} from "react";
 import AuthReducer from "./AuthReducer";
 import {Action} from "./AuthReducer";
+import {UserRepository} from "../../repositories/userRepository";
 
 interface User {
-    id: string;
+    id: string | number;
     email: string;
+    firstName?: string | null;
+    lastName?: string | null;
 }
 
 interface AuthContextProviderProps {
@@ -16,6 +19,7 @@ export interface AuthContextInterface {
     user: User | null;
     error: boolean;
     logout: () => void;
+    refresh: () => void;
     dispatch: Dispatch<Action>;
 }
 
@@ -23,6 +27,7 @@ const INITIAL_STATE : AuthContextInterface = {
     user: JSON.parse(localStorage.getItem("user") || "null") as User | null,
     error: false,
     logout: () => {},
+    refresh: () => {},
     dispatch: () => {},
 };
 
@@ -43,6 +48,15 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) : JS
         dispatch({type: 'LOGOUT'});
     }
 
+    function refresh() {
+        const userRepo = new UserRepository();
+        userRepo.get_user_info(state.user!).then(res => {
+            dispatch({type: 'LOGIN_SUCCESS', payload: res })
+        })
+            .catch(err => console.log(err.toString()));
+
+    }
+
     useEffect(() => {
         localStorage.setItem("user", JSON.stringify(state.user))
     }, [state.user])
@@ -53,7 +67,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) : JS
                 user: state.user,
                 error: state.error,
                 logout,
-                dispatch
+                dispatch,
+                refresh
             }}
         >
             {children}

@@ -18,7 +18,14 @@ export class AuthRepository {
         dispatch({ type: "LOGIN_START" });
         try {
             const res = await axios.post(`${this.url}/api/auth/login`, userInfo);
-            dispatch({ type: "LOGIN_SUCCESS", payload: {id: res.data.id, email: res.data.email} });
+            dispatch({ type: "LOGIN_SUCCESS", payload:
+                    {
+                        id: res.data.id,
+                        email: res.data.email,
+                        firstName: res.data.firstName,
+                        lastName: res.data.lastName
+                    }
+            });
         } catch (err) {
             dispatch({ type: "LOGIN_FAILURE"});
         }
@@ -29,7 +36,14 @@ export class AuthRepository {
         dispatch({ type: "LOGIN_START" });
         try {
             const res = await axios.post(`${this.url}/api/auth/register`, userInfo);
-            dispatch({ type: "LOGIN_SUCCESS", payload: {id: res.data.id, email: res.data.email} });
+            dispatch({ type: "LOGIN_SUCCESS", payload:
+                    {
+                        id: res.data.id,
+                        email: res.data.email,
+                        firstName: res.data.firstName,
+                        lastName: res.data.lastName
+                    }
+            });
         } catch (err) {
             dispatch({ type: "LOGIN_FAILURE"});
         }
