@@ -14,7 +14,7 @@ router.post("/register", async (req, res) => {
 
         if (await controller.findUser({email: req.body.email}))
         {
-            res.status(404).json("User with such email exists");
+            res.status(404).json("User with such email already exists.");
             return;
         }
 
@@ -36,13 +36,13 @@ router.post("/login", async (req, res) => {
 
         const user: User | null = await controller.findUser({email: req.body.email})
         if (!user) {
-            res.status(404).json("User with such email not found");
+            res.status(404).json("User with such email not found!");
             return;
         }
 
         const validPassword = await bcrypt.compare(req.body.password, user.password)
         if (!validPassword) {
-            res.status(400).json("Wrong password");
+            res.status(404).json("Incorrect password.");
             return
         }
 
